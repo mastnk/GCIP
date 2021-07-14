@@ -12,10 +12,10 @@ def main( input_filename, output_filename ):
     blr1 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=0.8, borderType=cv2.BORDER_REPLICATE )
     blr2 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=3.0, borderType=cv2.BORDER_REPLICATE )
 
-    dst = blr1 - blr2
+    DoG = blr1 - blr2
+    dst = src + 2.0 * DoG
 
-    val_max = np.max( np.abs( dst ) )
-    dst = dst/val_max * 127 + 127
+    dst = dst*255
     dst = dst.clip(0,255).astype( np.uint8 ) # cast to uint8, note that the clip is required before cast
 
     cv2.imwrite( output_filename, dst ) # save image to output_filename
