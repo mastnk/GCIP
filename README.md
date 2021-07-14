@@ -20,14 +20,14 @@ drive.mount('/content/drive')
 1. Run the following code to clone the samples.
 
 ```
-%cd "/content/drive/MyDrive/Colab Notebooks/
-!git clone https://github.com/masntk/GCIP
+%cd "/content/drive/MyDrive/Colab Notebooks/"
+!git clone https://github.com/mastnk/GCIP
 ```
 
 ## How to run on Google Colabratory
 
 ```
-%cd "/content/drive/MyDrive/Colab Notebooks/GCIP
+%cd "/content/drive/MyDrive/Colab Notebooks/GCIP"
 %cd 01
 %python3 imshow.py input.png
 ```
