@@ -1,5 +1,4 @@
 import sys
-
 import cv2 # it is necessary to use cv2 library
 
 

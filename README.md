@@ -6,7 +6,7 @@
 
 1. Vist [Google Colab site](https://research.google.com/colaboratory/).
 
-1. Create new notebook.
+1. Create new notebook. Any filename is fine, for example "GCIP.ipynb".
 
 1. Run the following code to mount the google drive. [More information](https://colab.research.google.com/notebooks/io.ipynb?hl=en)
 
@@ -24,7 +24,7 @@ drive.mount('/content/drive')
 !git clone https://github.com/mastnk/GCIP
 ```
 
-### How to run on Google Colabratory
+### How to run sample code on Google Colabratory
 
 ```
 %cd "/content/drive/MyDrive/Colab Notebooks/GCIP"
