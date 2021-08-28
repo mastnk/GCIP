@@ -11,20 +11,20 @@ def main( input_filename, output_filename ):
 
     ############ Edit here ############
 
-    # shift
-    h11=1;   h12=0;   h13=10;
+    # translation
+    h11=1;   h12=0;   h13=40;
     h21=0;   h22=1;   h23=20;
     h31=0;   h32=0;
 
-    # rotate
+    # rotation
     #rad = 10 * math.pi / 180
     #h11=math.cos(rad);   h12=-math.sin(rad);   h13=10;
     #h21=math.sin(rad);   h22= math.cos(rad);   h23=20;
     #h31=0;   h32=0;
 
     # scale
-    #h11=1.2;   h12=0;   h13=10;
-    #h21=0;   h22=0.8;   h23=20;
+    #h11=1.2;   h12=0;   h13=0;
+    #h21=0;   h22=0.8;   h23=0;
     #h31=0;   h32=0;
 
 
