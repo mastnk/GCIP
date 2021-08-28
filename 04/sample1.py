@@ -46,7 +46,7 @@ def main( input_filename, output_filename ):
             #    a = 1-(x*x+y*y-r*r)/(r*r)
             #    if( a < 0 ):
             #        a = 0
-            #    hsv[h,w,1] *= a
+            #    hsv[h,w,1] = a
 
 
     #If you want to use hsv, uncomment the next line

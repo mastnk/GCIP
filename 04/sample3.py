@@ -27,10 +27,10 @@ def main( input_filename, output_filename ):
     #If you want to use YCbCr, uncomment the next line
     #ycc = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
 
-    sigma = 5
+    sigma = 4
     ksize = int(sigma*3*2+1)
     enhance = 1.25
-    smooth = 0.1
+    smooth = 0.05
 
 
     (height, width, channel) = img.shape
