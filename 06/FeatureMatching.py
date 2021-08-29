@@ -22,9 +22,10 @@ def main( input_filename, query_filename, output_filename ):
     matches = bf.knnMatch(ds_q,ds_i,k=2)
 
     # Apply ratio test
+    k = 0.75 # threshold
     good = []
     for m,n in matches:
-        if m.distance < 0.75*n.distance:
+        if m.distance < k*n.distance:
             good.append([m])
 
     # cv.drawMatchesKnn expects list of lists as matches.
