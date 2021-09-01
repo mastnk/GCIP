@@ -10,19 +10,19 @@ def main( input_filename, query_filename, output_filename ):
     input = cv2.imread(input_filename, cv2.IMREAD_GRAYSCALE)
 
 
-    # Initiate SIFT detector
-    sift = cv2.SIFT_create()
+    # Initiate KAZE detector
+    kaze = cv2.KAZE_create()
 
     # find the keypoints and descriptors with SIFT
-    kp_q, ds_q = sift.detectAndCompute(query,None)
-    kp_i, ds_i = sift.detectAndCompute(input,None)
+    kp_q, ds_q = kaze.detectAndCompute(query,None)
+    kp_i, ds_i = kaze.detectAndCompute(input,None)
 
     # BFMatcher with default params
     bf = cv2.BFMatcher()
     matches = bf.knnMatch(ds_q,ds_i,k=2)
 
     # Apply ratio test
-    k = 0.75 # threshold
+    k = 0.5 # threshold
     good = []
     for m,n in matches:
         if m.distance < k*n.distance:
