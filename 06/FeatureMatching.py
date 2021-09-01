@@ -22,7 +22,7 @@ def main( input_filename, query_filename, output_filename ):
     matches = bf.knnMatch(ds_q,ds_i,k=2)
 
     # Apply ratio test
-    k = 0.75 # threshold
+    k = 0.5 # threshold
     good = []
     for m,n in matches:
         if m.distance < k*n.distance:
