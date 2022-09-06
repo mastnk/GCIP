@@ -4,4 +4,4 @@ print()
 
 ascii = [ ord(t) for t in txt ]
 s = sum(ascii) % 256
-print( 'Your code:', s )
+print( 'Your number:', s )
