@@ -8,9 +8,12 @@ def main( input_filename, output_filename ):
     src = cv2.imread( input_filename )  # load image from input_filename
     src = src.astype(np.float32)/255    # cast to float32
 
+    sigma1 = 0.8
+    sigma2 = 3.0
+    K = 2.0
 
-    blr1 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=0.8, borderType=cv2.BORDER_REPLICATE )
-    blr2 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=3.0, borderType=cv2.BORDER_REPLICATE )
+    blr1 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=sigma1, borderType=cv2.BORDER_REPLICATE )
+    blr2 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=sigma2, borderType=cv2.BORDER_REPLICATE )
 
     DoG = blr1 - blr2
     dst = src + 2.0 * DoG
