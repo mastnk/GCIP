@@ -28,21 +28,21 @@ def main( input_filename, output_filename ):
     #ycc = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
 
     sigma = 4
-    ksize = int(sigma*3*2+1)
-    enhance = 1.25
     smooth = 0.05
+    enhance = 1.25
 
+    ksize = int(sigma*3*2+1)
 
     (height, width, channel) = img.shape
     for c in range(channel):
         m1 = img[:,:,c]
-        m2 = m1 * m1
 
-        m1 = cv2.GaussianBlur( m1, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
-        m2 = cv2.GaussianBlur( m2, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
-        va = m2 - m1*m1
+        Lm1 = cv2.GaussianBlur( m1, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
+        m2 = m1 - Lm1
+        m2 = m2 * m2;
+        Lm2 = cv2.GaussianBlur( m2, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
 
-        dst = (img[:,:,c] - m1) * va / ( va + smooth*smooth) * enhance + m1
+        dst = (img[:,:,c] - Lm1) * Lm2 / ( Lm2 + smooth*smooth) * enhance + Lm1
         img[:,:,c] = dst
 
     #If you want to use hsv, uncomment the next line
