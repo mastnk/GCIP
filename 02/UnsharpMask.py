@@ -16,7 +16,7 @@ def main( input_filename, output_filename ):
     blr2 = cv2.GaussianBlur( src, ksize=(13, 13), sigmaX=sigma2, borderType=cv2.BORDER_REPLICATE )
 
     DoG = blr1 - blr2
-    dst = src + 2.0 * DoG
+    dst = src + K * DoG
 
     dst = dst*255
     dst = dst.clip(0,255).astype( np.uint8 ) # cast to uint8, note that the clip is required before cast

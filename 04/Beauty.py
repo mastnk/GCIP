@@ -24,37 +24,39 @@ def main( input_filename, output_filename ):
 
     ############ Edit here ############
 
-    #If you want to use hsv, uncomment the next line
-    #hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    sigma = 2.5
+    smooth = 0.025
+    enhance = 1.0
+    iteration = 1
 
-    #If you want to use YCbCr, uncomment the next line
-    #ycc = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+    V_gamma = 1.0
+    S_gain = 1.0
 
-    sigma = 4
-    smooth = 0.05
-    enhance = 1.25
+    ############ Edit here ############
 
-    ksize = int(sigma*3*2+1)
+    ksize = int(np.ceil(sigma*3))*2+1
 
     (height, width, channel) = img.shape
     for c in range(channel):
-        m1 = img[:,:,c]
+        for i in range(iteration):
+            m1 = img[:,:,c]
 
-        Lm1 = cv2.GaussianBlur( m1, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
-        m2 = m1 - Lm1
-        m2 = m2 * m2;
-        Lm2 = cv2.GaussianBlur( m2, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
+            Lm1 = cv2.GaussianBlur( m1, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
+            m2 = m1 - Lm1
+            m2 = m2 * m2;
+            Lm2 = cv2.GaussianBlur( m2, ksize=(ksize, ksize), sigmaX=sigma, borderType=cv2.BORDER_REPLICATE )
 
-        dst = (img[:,:,c] - Lm1) * Lm2 / ( Lm2 + smooth*smooth) * enhance + Lm1
-        img[:,:,c] = dst
+            img[:,:,c] = (m1 - Lm1) * Lm2 / ( Lm2 + smooth*smooth) * enhance + Lm1
+
 
     #If you want to use hsv, uncomment the next line
-    #img = cv2.cvtColor(hsvwithinrange(hsv), cv2.COLOR_HSV2BGR)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    #If you want to use YCbCr, uncomment the next line
-    #img = cv2.cvtColor(ycc, cv2.COLOR_YCrCb2BGR)
+    hsv[:,:,2] = np.power( hsv[:,:,2].clip(0,1), V_gamma )
+    hsv[:,:,1] = hsv[:,:,1] * S_gain
 
-    ############ Edit here ############
+    #If you want to use hsv, uncomment the next line
+    img = cv2.cvtColor(hsvwithinrange(hsv), cv2.COLOR_HSV2BGR)
 
     img = (img * 255).clip( 0, 255 ).astype('uint8') # uint8 [0,255]
     cv2.imwrite( output_filename, img ) # save image to output_filename

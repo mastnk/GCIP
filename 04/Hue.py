@@ -22,21 +22,27 @@ def main( input_filename, output_filename ):
     img = cv2.imread( input_filename )  # load image from input_filename
     img = img.astype('float32')/255.0   # single [0,1]
 
+    ############ Edit here ############
+
+    #If you want to use hsv, uncomment the next line
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    # H: [0,360]
-    # S: [0,1]
-    # V: [0,1]
 
-    H_rot_deg = 0
-    S_gain = 1
-    V_gamma = 1.0
 
-    hsv[:,:,0] = hsv[:,:,0] + H_rot_deg      #H
-    hsv[:,:,1] = hsv[:,:,1] * S_gain         #S
-    hsv[:,:,2] = np.power( hsv[:,:,2], V_gamma ) #V
+    (height, width, channel) = img.shape
+    for h in range(height):
+        y = height/2-h
+        for w in range(width):
+            x = w-width/2
 
-    hsv = hsvwithinrange(hsv)
-    img = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+            if( hsv[h,w,0] < 60-10 or hsv[h,w,0] > 60+10 ): # yellow
+#            if( hsv[h,w,0] < 120-60 or hsv[h,w,0] > 120+60 ): # green
+                hsv[h,w,1] = 0
+
+
+    #If you want to use hsv, uncomment the next line
+    img = cv2.cvtColor(hsvwithinrange(hsv), cv2.COLOR_HSV2BGR)
+
+    ############ Edit here ############
 
     img = (img * 255).clip( 0, 255 ).astype('uint8') # uint8 [0,255]
     cv2.imwrite( output_filename, img ) # save image to output_filename

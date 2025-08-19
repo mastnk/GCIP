@@ -12,8 +12,13 @@ def main( input_filename, output_filename ):
     # ycc[:,:,1] : Cr
     # ycc[:,:,2] : Cb
 
-    ycc[:,:,1] = ycc[:,:,1] * 1.5
-    ycc[:,:,2] = ycc[:,:,2] * 0.5
+    Y_gain = 1.2
+    Cr_gain = 0.5
+    Cb_gain = 1.5
+
+    ycc[:,:,0] = ycc[:,:,0] * Y_gain
+    ycc[:,:,1] = ycc[:,:,1] * Cr_gain
+    ycc[:,:,2] = ycc[:,:,2] * Cb_gain
 
     img = cv2.cvtColor(ycc, cv2.COLOR_YCrCb2BGR)
 
