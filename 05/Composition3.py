@@ -9,10 +9,12 @@ def main( input_filename, output_filename ):
     input = input.astype('float32')/255.0   # single [0,1]
 
     ############ Edit here ############
+    (h,w,c) = input.shape
+
     # H1
     H1 = np.zeros( (3,3), dtype=np.single )
-    H1[0,0] = 1; H1[0,1] = 0; H1[0,2] = -20;
-    H1[1,0] = 0; H1[1,1] = 1; H1[1,2] = -30;
+    H1[0,0] = 1; H1[0,1] = 0; H1[0,2] = -w/2;
+    H1[1,0] = 0; H1[1,1] = 1; H1[1,2] = -h/2;
     H1[2,0] = 0; H1[2,1] = 0; H1[2,2] = 1;
 
     # H2
@@ -24,8 +26,8 @@ def main( input_filename, output_filename ):
 
     # H3
     H3 = np.zeros( (3,3), dtype=np.single )
-    H3[0,0] = 1; H3[0,1] = 0; H3[0,2] = 30;
-    H3[1,0] = 0; H3[1,1] = 1; H3[1,2] = 20;
+    H3[0,0] = 1; H3[0,1] = 0; H3[0,2] = w/2;
+    H3[1,0] = 0; H3[1,1] = 1; H3[1,2] = h/2;
     H3[2,0] = 0; H3[2,1] = 0; H3[2,2] = 1;
     ############ Edit here ############
 
@@ -34,7 +36,6 @@ def main( input_filename, output_filename ):
 
     print(H)
 
-    (h,w,c) = input.shape
     output = cv2.warpPerspective(input, H, (w,h) )
 
     output = (output * 255).clip( 0, 255 ).astype('uint8') # uint8 [0,255]

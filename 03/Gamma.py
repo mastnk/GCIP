@@ -7,7 +7,7 @@ def main( input_filename, output_filename ):
     img = cv2.imread( input_filename )  # load image from input_filename
     img = img.astype('float32')/255.0   # single [0,1]
 
-    gamma = 1/2.0
+    gamma = 1
     img = np.power( img, gamma )
 
     img = (img * 255).clip( 0, 255 ).astype('uint8') # uint8 [0,255]
